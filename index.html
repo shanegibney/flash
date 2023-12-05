@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Javascript General</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h3>Periphal Vision Checker</h3>
+    <canvas id='canvas5' width="900" height="250" style='border:2px double#780dc4;'></canvas>ctx5<br>
+    <div id="now"></div>
+    <h3>Random on and off values.</h3>
+    <span id="on">Generates a random time flash is on between <span id="minOn">5</span> and <span id="maxOn">30</span>
+        seconds.</span><br>
+    min (5-15):<input type="range" id="minimOn" value="10" name="minimumOn" min="5" max="15" step="1"
+        oninput="this.nextElementSibling.value = this.value">
+    <output>10</output><br>
+    max (16-30):<input type="range" id="maximOn" value="20" name="maximumOn" min="16" max="30" step="1"
+        oninput="this.nextElementSibling.value = this.value">
+    <output>20</output><br>
+    <p id="rangeOn">Time for flash to be on. To be calculated.</p>
+    <span id="off">Generates a random time flash is off between <span id="minOff">5</span> and <span
+            id="maxOff">30</span> seconds.</span><br>
+    min (5-15):<input type="range" id="minimOff" value="10" name="minimumOff" min="5" max="15" step="1"
+        oninput="this.nextElementSibling.value = this.value">
+    <output>10</output><br>
+    max (16-30):<input type="range" id="maximOff" value="20" name="maximumOff" min="16" max="30" step="1"
+        oninput="this.nextElementSibling.value = this.value">
+    <output>20</output><br>
+    <p id="rangeOff">Time for flash to be off. To be calculated.</p>
+    <span id="testtest"></span><br>
+    <span id="test1"></span><br><!--now-->
+    <span id="test2"></span><br><!--session-->
+    <span id="test3"></span><br><!--intOff-->
+    <span id="test4"></span><br><!--intOn-->
+    <span id="test5"></span><br><!--cycle-->
+    <span id="test6"></span><br><!--on/off-->
+    <input id="submitid" type="button" value="Run" onclick="flash();" />
+    <hr>
+    <script>
+
+        const canvas5 = document.getElementById("canvas5");
+        const ctx5 = canvas5.getContext("2d");
+
+//Generate random numbers
+let min = 0;
+let max = 0;
+
+function generateRandomInteger(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+}
+
+        const now = Date.now();
+
+        f````````````aunction flash() {
+            document.getElementById("now").innerHTML = (now + 'ms = now: time in milliseconds since 00:00 1st January 1970 the beginning of UNIX time. <br>');
+            minOn = document.querySelector("#minimOn").value;
+            maxOn = document.querySelector("#maximOn").value;
+            minOn = parseInt(minOn);
+            maxOn = parseInt(maxOn);
+            let intOn = generateRandomInteger(minOn, maxOn);
+            document.getElementById("rangeOn").innerHTML = 'This is the time the flash is <strong>on</strong> for: ' + intOn + ' seconds';
+            document.getElementById("minOn").innerHTML = minOn;
+            document.getElementById("maxOn").innerHTML = maxOn;
+            minOff = document.querySelector("#minimOff").value;
+            maxOff = document.querySelector("#maximOff").value;
+            minOff = parseInt(minOff);
+            maxOff = parseInt(maxOff);
+            let intOff = generateRandomInteger(minOff, maxOff);
+            document.getElementById("rangeOff").innerHTML = 'This is the time the flash is <strong>off</strong> for: ' + intOff + ' seconds';
+            document.getElementById("minOff").innerHTML = minOff;
+            document.getElementById("maxOff").innerHTML = maxOff;
+            document.getElementById("minOff").innerHTML = minOff;
+            document.getElementById("maxOff").innerHTML = maxOff;
+            var session = 300;//will come from a form input
+            perVision(intOn, intOff, session);
+        }
+
+        function perVision(intOn, intOff, session) {
+            //requestAnimationFrame(perVision);
+            document.getElementById("testtest").innerHTML = 'hello world!';
+            document.getElementById("test1").innerHTML = 'now = ' + now;
+            document.getElementById("test2").innerHTML = 'session = ' + session;
+            document.getElementById("test3").innerHTML = 'intOn = ' + intOn;
+            document.getElementById("test4").innerHTML = 'intOff = ' + intOff;
+            var cycle = intOn + intOff;
+            document.getElementById("test5").innerHTML = 'cycle = intOn + intOff = ' + cycle;
+            if (session > intOn) {
+                document.getElementById("test6").innerHTML = 'on';
+                flashOn();
+            } else {
+                document.getElementById("test6").innerHTML = 'off';
+                flashOff();
+            }
+        }
+
+        //peripheral vision---------------------------
+        let counterp = 0;//peripheral vision variables
+        //Create settings for:
+        //background colour
+        //colour of dot (when on)
+        //size of dot 
+        //colour of crosshair
+        //size of crosshair
+        //type of crosshair lines crossed, triangle, square, circle, star
+        //time dot is on for
+        //time dot is off for
+        //TimeOn and timeOff is actually a random number between 5s and number
+        //chosen which has to be less than 30s.
+        //session time a multiple of the sum of timeOn and timeoff.
+        let session = 0;//has to be a number between 30s and 10 minutes
+        let timeOn = 0;//must be less than session, greater than 5s and less than 30s
+        let timeOff = 0;//must be less than session, greater than 5s and less than 30s
+        //If you know timeOn and timeOff, session can be calculated as a multiple of the sum of those.
+
+        //ctx5.clearRect(0,0,innerWidth,innerHeight);
+        /*if(true){//are we in last 10secs of session,session-10s
+          timer(true);
+        } else {
+          if(true){//condition time is on for
+            flashOn();
+          } else {
+            flashOff();
+          }
+        }
+      counterp++;
+    }*/
+
+        function flashOn() {
+            ctx5.beginPath();
+            ctx5.fillStyle = 'red';
+            ctx5.arc(100, 100, 10, 0, 2 * Math.PI);
+            ctx5.fill()
+            if (false) {// time is on for
+                flashOff()//Go to off function
+            } else {
+                flashOn()//Go to on function again
+            }
+        }
+
+        function flashOff() {
+            ctx5.beginPath();
+            ctx5.fillstyle = 'white';//to be same as background colour
+            ctx5.arc(counterp, 100, 10, 0, 2 * Math.PI);
+            ctx5.fill()
+            if (true) {//if finished being off
+                flashOn()//Go to on function
+            } else {
+                flashOff()//Go to off function again
+            }
+        }
+
+    </script>
+</body>
+
+</html>
