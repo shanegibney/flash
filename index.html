@@ -1,45 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <title>Javascript General</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <title>Javascript General</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-    <h3>Periphal Vision Checker</h3>
-    <canvas id='canvas5' width="900" height="250" style='border:2px double#780dc4;'></canvas>ctx5<br>
-    <div id="now"></div>
-    <h3>Random on and off values.</h3>
-    <span id="on">Generates a random time flash is on between <span id="minOn">5</span> and <span id="maxOn">30</span>
-        seconds.</span><br>
-    min (5-15):<input type="range" id="minimOn" value="10" name="minimumOn" min="5" max="15" step="1"
-        oninput="this.nextElementSibling.value = this.value">
+  <hr>
+  <h3>P V C</h3>
+  <canvas id='canvas5' width="500" height="250" style='border:2px double#780dc4;'></canvas>ctx5<br>
+      <h3>Random on and off values.</h3>
+      <span>Flash <strong>on</strong> for:</span><br>
+  <span id="on">Generates a random time flash is on between <span id="minOn">5</span> and <span id="maxOn">30</span> seconds.</span><br>
+    min (5-15):<input type="range" id="minimOn" value="10" name="minimumOn" min="5" max="15" step="1" oninput="this.nextElementSibling.value = this.value">
     <output>10</output><br>
-    max (16-30):<input type="range" id="maximOn" value="20" name="maximumOn" min="16" max="30" step="1"
-        oninput="this.nextElementSibling.value = this.value">
+    max (16-30):<input type="range" id="maximOn" value="20" name="maximumOn" min="16" max="30" step="1" oninput="this.nextElementSibling.value = this.value">
     <output>20</output><br>
-    <p id="rangeOn">Time for flash to be on. To be calculated.</p>
-    <span id="off">Generates a random time flash is off between <span id="minOff">5</span> and <span
-            id="maxOff">30</span> seconds.</span><br>
-    min (5-15):<input type="range" id="minimOff" value="10" name="minimumOff" min="5" max="15" step="1"
-        oninput="this.nextElementSibling.value = this.value">
-    <output>10</output><br>
-    max (16-30):<input type="range" id="maximOff" value="20" name="maximumOff" min="16" max="30" step="1"
-        oninput="this.nextElementSibling.value = this.value">
+  <p id="rangeOn">Time for flash to be on. To be calculated.</p>
+  <span>Flash <strong>off</strong> for:</span><br>
+  <span id="off">Generates a random time flash is off between <span id="minOff">5</span> and <span id="maxOff">30</span> seconds.</span><br>
+  min (5-15):<input type="range" id="minimOff" value="10" name="minimumOff" min="5" max="15" step="1" oninput="this.nextElementSibling.value = this.value">
+    <output>10</output><br>     
+    max (16-30):<input type="range" id="maximOff" value="20" name="maximumOff" min="16" max="30" step="1" oninput="this.nextElementSibling.value = this.value">
     <output>20</output><br>
-    <p id="rangeOff">Time for flash to be off. To be calculated.</p>
-    <span id="testtest"></span><br>
-    <span id="test1"></span><br><!--now-->
-    <span id="test2"></span><br><!--session-->
-    <span id="test3"></span><br><!--intOff-->
-    <span id="test4"></span><br><!--intOn-->
-    <span id="test5"></span><br><!--cycle-->
-    <span id="test6"></span><br><!--on/off-->
-    <input id="submitid" type="button" value="Run" onclick="flash();" />
-    <hr>
+  <p id="rangeOff">Time for flash to be off. To be calculated.</p> 
+  <span id="test1"></span><br><!--now-->
+  <span id="test2"></span><br><!--session-->
+  <span id="test3"></span><br><!--intOff-->
+  <span id="test4"></span><br><!--intOn-->
+  <span id="test5"></span><br><!--cycle-->
+  <span id="test6"></span><br><!--on/off-->
+  <input id="submitid" type="button" value="Run" onclick="flash();"/>
+  <hr>
+
+
     <script>
 
         const canvas5 = document.getElementById("canvas5");
@@ -57,8 +52,7 @@ return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusiv
 
         const now = Date.now();
 
-        f````````````aunction flash() {
-            document.getElementById("now").innerHTML = (now + 'ms = now: time in milliseconds since 00:00 1st January 1970 the beginning of UNIX time. <br>');
+        function flash() {
             minOn = document.querySelector("#minimOn").value;
             maxOn = document.querySelector("#maximOn").value;
             minOn = parseInt(minOn);
@@ -82,9 +76,6 @@ return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusiv
         }
 
         function perVision(intOn, intOff, session) {
-            //requestAnimationFrame(perVision);
-            document.getElementById("testtest").innerHTML = 'hello world!';
-            document.getElementById("test1").innerHTML = 'now = ' + now;
             document.getElementById("test2").innerHTML = 'session = ' + session;
             document.getElementById("test3").innerHTML = 'intOn = ' + intOn;
             document.getElementById("test4").innerHTML = 'intOff = ' + intOff;
