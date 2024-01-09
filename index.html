@@ -16,10 +16,10 @@
     <div>frame: <span id="frame"></span></div>
     <div>mult5: <span id="mult5"></span></div>
     <div>offFor: <span id="offFor"></span></div>
-    <div>onFor: <span id="onFor"><span</div>
+    <div>onFor: <span id="onFor"></span></div>
     <div>c: <span id="cy"></span></div>
-    <div>typeof c: <span id="typeofc"></span></div>
-
+    <div>(typeof c): <span id="typeofc"></span></div>
+    <div>finish: <span id="finish"></span></div>
 <script>
 const canvas2 = document.getElementById("canvas2");
 const ctx2 = canvas2.getContext("2d");
@@ -27,13 +27,14 @@ let radius = 20;
 let lPause = true;
 let frame = 1;
 let mult5 = 0;
-let onFor = 180;//180 frames or 3 seconds
-let offFor = 180;//180 frames or 3 seconds
+let onFor = 60;//60 frames or 1 second
+let offFor = 60;//60 frames or 1 second
 let start;
 let step;
 let finish;
 let cy;
-let c = 0;
+let cycle = 0;
+//ctx2 bouncing ball animation
 function animation(){
   if (!lPause)
      requestAnimationFrame(animation);
@@ -49,10 +50,56 @@ if(frame%60==0){//at 60fps
   document.getElementById("mult5").innerHTML = mult5;
   document.getElementById("onFor").innerHTML = onFor;
   document.getElementById("offFor").innerHTML = offFor;
-  c = 6
-  console.log(typeof c)
-  document.getElementById("cy").innerHTML = c;
+  cycle = offFor + onFor;//120=60+60
+  //console.log(typeof c)
+  document.getElementById("typeofc").innerHTML = cycle;
+  //document.getElementById("cy").innerHTML = 'ffgggh';
 }
+
+step = 0 + offFor;
+  finish = step + onFor;
+  document.getElementById("finish").innerHTML = finish;
+  
+  if(cycle%frame==0){
+    start = onFor + offFor;
+  }else{
+    start = 0;
+  }
+
+if(frame>0&&frame<step){
+off();
+}
+if(frame>step&&frame<finish){
+on();
+}
+//off for 60 frames
+  function off(){
+//turn circle off 
+ctx2.beginPath();
+ctx2.fillStyle = bgcolour;
+ctx2.arc(200, 200, radius, 0, 2 * Math.PI);
+ctx2.fill();
+ctx2.closePath(); 
+  }
+ function on(){
+//turn circle on and add to array
+ctx2.beginPath();
+ctx2.fillStyle = "blue";
+ctx2.arc(200, 200, radius, 0, 2 * Math.PI);
+ctx2.fill();
+ctx2.closePath(); 
+ctx2.beginPath();
+ctx2.strokeStyle = "black";
+ctx2.lineWidth = 2;
+ctx2.arc(200, 200, radius, 0, 2 * Math.PI);
+ctx2.stroke();
+ctx2.closePath();
+  }
+  mult5++;
+  frame++;
+  
+}
+
 ctx2.beginPath();
 ctx2.fillStyle = "orange";
 ctx2.arc(100, 100, radius, 0, 2 * Math.PI);
@@ -64,8 +111,6 @@ ctx2.lineWidth = 2;
 ctx2.arc(100,100, radius, 0, 2 * Math.PI);
 ctx2.stroke();
 ctx2.closePath();
-frame++;
-}
 function toggleanimation() {
   if (lPause)
     {  lPause = false;
@@ -75,8 +120,7 @@ function toggleanimation() {
   else
     {  lPause = true;
 	   document.getElementById("ani").value = "Animate flashing";
-    }
-    
+    }   
 }
 </script>
 </body>
